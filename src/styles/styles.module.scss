@@ -1,0 +1,574 @@
+// Variáveis
+$primary-color: #2c5530;
+$secondary-color: #4a7c59;
+$accent-color: #6b8e23;
+$background-light: #f8f9fa;
+$text-dark: #333;
+$text-light: #666;
+$border-color: #e1e5e9;
+$success-color: #28a745;
+$warning-color: #ffc107;
+$danger-color: #dc3545;
+
+// Mixins
+@mixin card-shadow {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+@mixin transition($property: all, $duration: 0.3s) {
+  transition: $property $duration ease;
+}
+
+@mixin hover-lift {
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.formGrid {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 0.25fr 0.25fr 1fr 1fr 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  background-color: $background-light;
+
+  .div1 {
+    grid-area: 1 / 1 / 2 / 6;
+    background: linear-gradient(
+      135deg,
+      $primary-color 0%,
+      $secondary-color 100%
+    );
+    color: white;
+    padding: 30px;
+    overflow: hidden;
+    @include card-shadow;
+
+    .sector-title {
+      margin: 0;
+      // font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  .div2 {
+    grid-area: 2 / 1 / 4 / 3;
+    background: white;
+    border-radius: 12px;
+    margin: 12px;
+    padding: 12px;
+    overflow: auto;
+    @include card-shadow;
+
+    h4 {
+      margin: 0 0 15px 0;
+      // font-size: 1rem;
+      color: $text-dark;
+    }
+
+    .months-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 6px;
+
+      .month-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+        border: 2px solid $border-color;
+        border-radius: 6px;
+        padding: 12px;
+        cursor: pointer;
+        @include transition;
+        @include hover-lift;
+
+        &:hover {
+          border-color: $accent-color;
+        }
+
+        .month-name {
+          font-size: 1.15rem;
+          font-weight: 600;
+          color: $text-dark;
+          margin-bottom: 2px;
+        }
+
+        .month-year {
+          font-size: 1rem;
+          color: $text-light;
+          margin-bottom: 15px;
+        }
+
+        .status-indicator {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 0.9rem;
+          color: $text-light;
+
+          .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+
+            &.not-registered {
+              background-color: $danger-color;
+            }
+
+            &.registered {
+              background-color: $success-color;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .div3 {
+    grid-area: 4 / 1 / 6 / 3;
+    background: white;
+    border-radius: 6px;
+    margin: 12px;
+    padding: 12px;
+    overflow: hidden;
+    @include card-shadow;
+
+    .selection-message {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: $text-light;
+
+      .message-icon {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        animation: pulse 2s infinite;
+      }
+
+      h3 {
+        margin: 0 0 15px 0;
+        font-size: 1.4rem;
+        color: $text-dark;
+      }
+
+      p {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.5;
+      }
+    }
+  }
+
+  .div4 {
+    grid-area: 2 / 3 / 6 / 6;
+    background: white;
+    border-radius: 12px;
+    margin: 12px;
+    padding: 12px;
+    margin-left: 0 !important;
+    overflow: hidden;
+    @include card-shadow;
+
+    .charts-area {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .charts-placeholder {
+        text-align: center;
+        color: $text-light;
+
+        .placeholder-icon {
+          font-size: 3rem;
+          margin-bottom: 15px;
+        }
+
+        h3 {
+          margin: 0 0 10px 0;
+          font-size: 1.3rem;
+          color: $text-dark;
+        }
+
+        p {
+          margin: 0;
+          font-size: 1rem;
+        }
+      }
+    }
+
+    .form-area {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+
+      .form-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid $border-color;
+
+        .back-button {
+          background: $accent-color;
+          color: white;
+          border: none;
+          padding: 10px 15px;
+          border-radius: 6px;
+          cursor: pointer;
+          font-size: 0.9rem;
+          @include transition;
+
+          &:hover {
+            background: darken($accent-color, 10%);
+          }
+        }
+
+        h3 {
+          margin: 0;
+          font-size: 1.3rem;
+          color: $text-dark;
+        }
+      }
+
+      .form-placeholder {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        // align-items: center;
+        // justify-content: center;
+        text-align: center;
+        color: $text-light;
+        height: 100%;
+        overflow: hidden;
+
+        .placeholder-icon {
+          font-size: 2.5rem;
+          margin-bottom: 15px;
+        }
+
+        p {
+          margin: 0 0 10px 0;
+          font-size: 1rem;
+
+          &.form-note {
+            font-size: 0.9rem;
+            font-style: italic;
+            color: darken($text-light, 10%);
+          }
+        }
+
+        // Estilos do Formulário
+        form {
+          height: 100%;
+          width: 100%;
+          gap: 0.5rem;
+          overflow: hidden;
+          //GRID RESPONSIVA PARA OS FIELDSETS
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+
+          // Scrollbar personalizada
+          &::-webkit-scrollbar {
+            width: 6px;
+          }
+
+          &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: $accent-color;
+            border-radius: 3px;
+
+            &:hover {
+              background: darken($accent-color, 10%);
+            }
+          }
+
+          fieldset {
+            min-width: 300px;
+            width: 32%;
+            height: 90%;
+            overflow: auto;
+            border: 2px solid $border-color;
+            border-radius: 6px;
+            padding: 12px;
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            @include transition;
+
+            &:hover {
+              border-color: $accent-color;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            }
+
+            legend {
+              font-size: 1.1rem;
+              font-weight: 600;
+              color: $primary-color;
+              padding: 0 15px;
+              background: white;
+              border-radius: 9px;
+              border: 2px solid $border-color;
+              margin-bottom: 6px;
+            }
+
+            .form-group {
+              margin-bottom: 12px;
+
+              &:last-child {
+                margin-bottom: 0;
+              }
+
+              label {
+                display: flex;
+                // align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+                font-weight: 500;
+                color: $text-dark;
+                margin-bottom: 8px;
+                font-size: 0.95rem;
+                line-height: 1.4;
+                cursor: pointer;
+                transition: all 0.3s ease;
+
+                .indicator-name {
+                  width: calc(100% - 30px);
+                }
+
+                span {
+                  width: 26px;
+                  height: 26px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  background-color: #ffebb0;
+                  // opacity: 0.5;
+                  transform: rotate(45deg);
+                  border-radius: 4px;
+                  color: #000;
+                  transition: all 0.3s ease;
+                }
+
+                .information {
+                  display: none;
+                  flex-direction: column;
+                  gap: 0.5rem;
+                  position: absolute;
+                  top: 35px; // ou ajuste conforme necessário
+                  left: 35px;
+                  background-color: #ffebb0;
+                  padding: 12px;
+                  border: 1px solid #ccc;
+                  border-radius: 4px;
+                  z-index: 10;
+                  width: 300px;
+                  transition: all 0.1s ease;
+
+                  p {
+                    margin: 0;
+                    font-size: 0.9rem;
+                    font-weight: 200;
+                    color: $text-dark;
+                  }
+                }
+
+                &:hover .information {
+                  display: flex;
+                }
+              }
+
+              input[type="number"] {
+                width: 100%;
+                padding: 6px 12px;
+                border: 2px solid $border-color;
+                border-radius: 8px;
+                font-size: 1rem;
+                background: white;
+                @include transition(border-color);
+
+                &:focus {
+                  outline: none;
+                  border-color: $accent-color;
+                  box-shadow: 0 0 0 3px rgba(107, 142, 35, 0.1);
+                }
+
+                &:hover {
+                  opacity: 0.5;
+                }
+
+                &::placeholder {
+                  color: $text-light;
+                  font-style: italic;
+                }
+
+                // Remover spinners do Chrome/Safari
+                &::-webkit-outer-spin-button,
+                &::-webkit-inner-spin-button {
+                  -webkit-appearance: none;
+                  margin: 0;
+                }
+
+                // Remover spinners do Firefox
+                &[type="number"] {
+                  -moz-appearance: textfield;
+                }
+              }
+            }
+          }
+
+          // Botão de submit
+          button[type="submit"] {
+            height: 10%;
+            width: 100%;
+            background: linear-gradient(
+              135deg,
+              $primary-color 0%,
+              $secondary-color 100%
+            );
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            @include transition;
+            @include card-shadow;
+
+            &:hover {
+              transform: translateY(-2px);
+              box-shadow: 0 6px 20px rgba(44, 85, 48, 0.3);
+            }
+
+            &:active {
+              transform: translateY(0);
+            }
+
+            &:disabled {
+              opacity: 0.6;
+              cursor: not-allowed;
+              transform: none;
+            }
+          }
+        }
+
+        // Estilos específicos para fieldsets
+        form fieldset {
+          // Indicadores Estratégicos
+          &:nth-child(1) {
+            border-left: 4px solid #007bff;
+
+            legend {
+              color: #007bff;
+              border-color: #007bff;
+            }
+          }
+
+          // Indicadores Táticos
+          &:nth-child(2) {
+            border-left: 4px solid #ffc107;
+
+            legend {
+              color: #e0a800;
+              border-color: #ffc107;
+            }
+          }
+
+          // Indicadores Operacionais
+          &:nth-child(3) {
+            border-left: 4px solid #28a745;
+
+            legend {
+              color: #28a745;
+              border-color: #28a745;
+            }
+          }
+        }
+
+        // Animações para o formulário
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateX(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        form {
+          animation: slideIn 0.3s ease;
+        }
+
+        // Responsividade
+        @media (max-width: 768px) {
+          .indicadores-container {
+            grid-template-areas:
+              "div1"
+              "div2"
+              "div3"
+              "div4";
+            grid-template-columns: 1fr;
+            grid-template-rows: auto auto auto 1fr;
+            padding: 15px;
+            gap: 15px;
+
+            .div1 .sector-title {
+              font-size: 2rem;
+            }
+
+            .div2 .months-grid {
+              grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+          }
+
+          .form-indicadores {
+            fieldset {
+              padding: 15px;
+
+              legend {
+                font-size: 1rem;
+                padding: 0 10px;
+              }
+
+              .form-group {
+                margin-bottom: 15px;
+
+                label {
+                  font-size: 0.9rem;
+                }
+
+                input[type="number"] {
+                  padding: 10px 12px;
+                  font-size: 0.95rem;
+                }
+              }
+            }
+
+            button[type="submit"] {
+              padding: 6px 8px;
+              font-size: 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
