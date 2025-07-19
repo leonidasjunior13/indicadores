@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      String   @default("user") // user, admin
+  position  String
+  avatar    String?
+  loggedIn  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Areas     Areas?   @relation(fields: [areasId], references: [id])
+  areasId   String?
+}
+
+model Areas {
+  id          String      @id @default(cuid())
+  name        String
+  description String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  User        User[]
+  Indicators  Indicator[]
+}
+
+model Indicator {
+  id            String   @id @default(cuid())
+  name          String
+  description   String?
+  responsibles  String   @default("")
+  metaReference String
+  metaFormula   String
+  value         Float
+  level         String // estratégico, tático, operacional
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  Areas         Areas?   @relation(fields: [areasId], references: [id])
+  areasId       String?
+}
+
+model IndicatorHistory {
+  id        String   @id @default(cuid())
+  area      String   @default("")
+  year      Int
+  month     String
+  values    Json
+  createdAt DateTime @default(now())
+}
