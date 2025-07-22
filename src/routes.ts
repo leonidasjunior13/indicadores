@@ -11,6 +11,7 @@ router.post("/login", index.login);
 router.get("/get-indicators", indicators.getIndicators);
 router.post("/create-month-history", indicators.createMonthHistory);
 router.get("/get-all-history", indicators.getAllHistory);
+router.get("/get-areas", indicators.getAreas);
 
 router.get("/test", index.test);
 

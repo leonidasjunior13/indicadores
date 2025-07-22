@@ -124,4 +124,28 @@ export default {
       return res.status(500).json({ error: "Internal server error" });
     }
   },
+
+  async getAreas(req: Request, res: Response) {
+    const accessToken = req.query.accessToken;
+
+    if (!accessToken) {
+      return res.status(401).json({ error: "Access token is required" });
+    }
+    const decoded = verifyToken(accessToken as string);
+    if (!decoded) {
+      return res.status(402).json({ error: "Invalid access token" });
+    }
+    try {
+      const areas = await Prisma.areas.findMany({
+        include: {
+          Indicators: true,
+        },
+      });
+      console.log("Areas fetched:", areas);
+      return res.status(200).json(areas);
+    } catch (error) {
+      console.error("Error fetching areas:", error);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+  },
 };
