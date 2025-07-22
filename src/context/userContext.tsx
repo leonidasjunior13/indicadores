@@ -47,6 +47,7 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
       localStorage.setItem("user", JSON.stringify(data.user));
       localStorage.setItem("token", data.accessToken);
       localStorage.setItem("area", data.user.position);
+      localStorage.setItem("role", data.user.role);
 
       setUser(data.user);
       toast.success("Logado com sucesso");
@@ -70,6 +71,7 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     localStorage.removeItem("area");
+    localStorage.removeItem("role");
 
     setUser(null);
     toast.success("Você saiu do sistema");

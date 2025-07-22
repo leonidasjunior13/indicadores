@@ -46,3 +46,13 @@ export const getAllHistory = async (accessToken: string) => {
     throw error;
   }
 };
+
+export const getAreas = async (accessToken: string) => {
+  try {
+    const response = await api.get(`/get-areas?accessToken=${accessToken}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching areas:", error);
+    throw error;
+  }
+};

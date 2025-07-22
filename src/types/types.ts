@@ -16,6 +16,8 @@ export interface IndicatorsProps {
   description: string;
   metaReference: string;
   level: "estratégico" | "tático" | "operacional";
+  value: number;
+  metaFormula: string;
   Areas: AreaProps;
 }
 
@@ -23,4 +25,21 @@ export interface AreaProps {
   id: string;
   name: string;
   Indicadores: IndicatorsProps[];
+  icone: string;
+}
+
+export interface IndicatorValue {
+  id: string;
+  name: string;
+  value: number;
+}
+
+export interface HistoryProps {
+  id: string;
+  area: string;
+  year: number;
+  month: number;
+  values: {
+    [key: string]: IndicatorValue;
+  };
 }

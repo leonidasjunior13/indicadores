@@ -1,0 +1,480 @@
+// Variáveis
+$primary-color: #2c5530;
+$secondary-color: #4a7c59;
+$accent-color: #6b8e23;
+$background-light: #f8f9fa;
+$text-dark: #333;
+$text-light: #666;
+$border-color: #e1e5e9;
+$success-color: #28a745;
+$warning-color: #ffc107;
+$danger-color: #dc3545;
+
+// Mixins
+@mixin card-shadow {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+@mixin transition($property: all, $duration: 0.3s) {
+  transition: $property $duration ease;
+}
+
+@mixin hover-lift {
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+}
+
+// Estilos do Dashboard
+.dashboard {
+  height: 100vh;
+  width: 100vw;
+  background: $background-light;
+  overflow: auto;
+
+  .dashboard-header {
+    background: white;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid $border-color;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @include card-shadow;
+
+    h1 {
+      color: $primary-color;
+      font-size: 2rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .header-controls {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+
+      .time-filter {
+        padding: 0.5rem 1rem;
+        border: 1px solid $border-color;
+        border-radius: 6px;
+        background: white;
+        color: $text-dark;
+        font-size: 0.9rem;
+        @include transition();
+
+        &:focus {
+          outline: none;
+          border-color: $primary-color;
+        }
+      }
+    }
+  }
+
+  .dashboard-nav {
+    background: white;
+    padding: 1rem 2rem;
+    display: flex;
+    gap: 1rem;
+    border-bottom: 1px solid $border-color;
+
+    .nav-button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: transparent;
+      border: 1px solid $border-color;
+      border-radius: 8px;
+      color: $text-light;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      position: relative;
+      @include transition();
+
+      &:hover {
+        background: rgba($primary-color, 0.05);
+        border-color: $primary-color;
+        color: $primary-color;
+      }
+
+      &.active {
+        background: $primary-color;
+        color: white;
+        border-color: $primary-color;
+
+        .priority-badge {
+          background: rgba(255, 255, 255, 0.2);
+          color: white;
+        }
+      }
+
+      .priority-badge {
+        background: $danger-color;
+        color: white;
+        font-size: 0.7rem;
+        padding: 0.2rem 0.5rem;
+        border-radius: 12px;
+        margin-left: 0.5rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        @include transition();
+      }
+    }
+
+    .area-button {
+      margin-left: auto;
+      background: $warning-color;
+    }
+
+    .close-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: $danger-color;
+      color: white;
+      cursor: pointer;
+      @include transition();
+
+      &:hover {
+        background: darken($danger-color, 10%);
+        color: white;
+      }
+    }
+  }
+
+  .dashboard-content {
+    padding: 2rem;
+  }
+
+  .empty {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: $text-light;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}
+
+// Seções de Indicadores
+.indicadores-section {
+  .section-header {
+    margin-bottom: 2rem;
+
+    h2 {
+      color: $primary-color;
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin: 0 0 0.5rem 0;
+    }
+
+    p {
+      color: $text-light;
+      font-size: 1rem;
+      margin: 0;
+    }
+  }
+
+  // Grid de KPIs
+  .kpis-grid {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+
+    &.estrategicos-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    &:not(.estrategicos-grid) {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+  }
+
+  // Cards de KPI
+  .kpi-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid $border-color;
+    @include card-shadow;
+    @include transition();
+    @include hover-lift;
+
+    .kpi-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+
+      h4 {
+        color: $text-dark;
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .status-indicator {
+        padding: 0.3rem;
+        border-radius: 50%;
+
+        &.success {
+          background: rgba($success-color, 0.1);
+          color: $success-color;
+        }
+
+        &.warning {
+          background: rgba($warning-color, 0.1);
+          color: $warning-color;
+        }
+
+        &.danger {
+          background: rgba($danger-color, 0.1);
+          color: $danger-color;
+        }
+      }
+    }
+
+    .kpi-value {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: $primary-color;
+      margin-bottom: 0.8rem;
+      line-height: 1;
+    }
+
+    .kpi-details {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .meta {
+        color: $text-light;
+        font-size: 0.85rem;
+      }
+
+      .variacao {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+
+        &.positive {
+          color: $success-color;
+        }
+
+        &.negative {
+          color: $danger-color;
+        }
+      }
+    }
+  }
+
+  // Grid de Gráficos
+  .charts-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+
+    &.estrategicos-charts {
+      grid-template-columns: 2fr 1fr;
+
+      @media (max-width: 1024px) {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+
+  // Cards de Gráfico
+  .chart-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid $border-color;
+    @include card-shadow;
+    @include transition();
+
+    &:hover {
+      @include hover-lift;
+    }
+
+    &.large {
+      min-height: 400px;
+    }
+
+    h3 {
+      color: $primary-color;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0 0 1.5rem 0;
+      text-align: center;
+      border-bottom: 1px solid $border-color;
+      padding-bottom: 1rem;
+    }
+  }
+}
+
+// Destaque especial para indicadores estratégicos
+.indicadores-section.estrategicos {
+  .section-header {
+    background: linear-gradient(
+      135deg,
+      rgba($primary-color, 0.05) 0%,
+      rgba($secondary-color, 0.05) 100%
+    );
+    padding: 2rem;
+    border-radius: 12px;
+    border: 2px solid rgba($primary-color, 0.1);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(
+        90deg,
+        $primary-color 0%,
+        $secondary-color 50%,
+        $accent-color 100%
+      );
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      background: linear-gradient(
+        135deg,
+        $primary-color 0%,
+        $secondary-color 100%
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    p {
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+  }
+
+  .kpi-card {
+    border: 2px solid rgba($primary-color, 0.1);
+    background: linear-gradient(
+      135deg,
+      white 0%,
+      rgba($primary-color, 0.02) 100%
+    );
+
+    &:hover {
+      border-color: $primary-color;
+      background: linear-gradient(
+        135deg,
+        white 0%,
+        rgba($primary-color, 0.05) 100%
+      );
+    }
+
+    .kpi-value {
+      font-size: 2.5rem;
+      background: linear-gradient(
+        135deg,
+        $primary-color 0%,
+        $secondary-color 100%
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
+
+  .chart-card {
+    border: 2px solid rgba($primary-color, 0.1);
+
+    &:hover {
+      border-color: $primary-color;
+    }
+  }
+}
+
+// Responsividade
+@media (max-width: 768px) {
+  .dashboard {
+    .dashboard-header {
+      padding: 1rem;
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+
+    .dashboard-nav {
+      padding: 1rem;
+      flex-direction: column;
+
+      .nav-button {
+        justify-content: center;
+      }
+    }
+
+    .dashboard-content {
+      padding: 1rem;
+    }
+
+    .kpis-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .charts-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+
+      &.estrategicos-charts {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .chart-card {
+      padding: 1rem;
+    }
+  }
+}
+
+// Animações
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.indicadores-section {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.kpi-card {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.chart-card {
+  animation: fadeIn 0.7s ease-out;
+}

@@ -16,7 +16,11 @@ export default function Login() {
 
     // Redireciona apenas se login for bem-sucedido
     if (success) {
-      navigate("/");
+      if (localStorage.getItem("role") === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
     } else {
       alert("Login falhou. Verifique suas credenciais.");
     }

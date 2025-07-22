@@ -9,8 +9,12 @@ import { toast } from "react-toastify";
 import type { IndicatorsProps } from "../types/types";
 import { MessageSquareWarning } from "lucide-react";
 import Loading from "../components/loading";
+import { useUser } from "../hooks/login-context";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+  const { logout } = useUser();
+  const navigate = useNavigate();
   const [selectedMonth, setSelectedMonth] = useState<any>(null);
   const [showForm, setShowForm] = useState(false);
   // Estado para controlar os valores de todos os inputs do formulário
@@ -205,11 +209,27 @@ export default function Home() {
     setShowForm(false);
   };
 
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
   return (
     <>
       {loading && <Loading />}
       <div className={styles.formGrid}>
-        <div className={styles.div1}>{localStorage.getItem("area")}</div>
+        <div className={styles.div1}>
+          <div className={styles["sector-title"]}>
+            {localStorage.getItem("area")}
+          </div>
+          <div className={styles["sector-user"]}>
+            <p>
+              Bem vindo{" "}
+              <b>{JSON.parse(localStorage.getItem("user") || "").name}</b>
+            </p>
+            <span onClick={handleLogout}>Fazer logout</span>
+          </div>
+        </div>
 
         <div className={styles.div2}>
           <h4>Meses com indicadores em aberto</h4>

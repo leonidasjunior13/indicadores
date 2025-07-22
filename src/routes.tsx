@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/home";
 import Login from "./pages/login";
 import { PrivateRoute } from "./privateRoute";
+import Dashboard from "./pages/admin";
 
 export default function MyRoutes() {
   return (
@@ -13,6 +14,14 @@ export default function MyRoutes() {
           element={
             <PrivateRoute>
               <Home />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/admin'
+          element={
+            <PrivateRoute>
+              <Dashboard />
             </PrivateRoute>
           }
         />
