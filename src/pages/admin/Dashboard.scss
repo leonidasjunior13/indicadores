@@ -35,7 +35,7 @@ $danger-color: #dc3545;
 
   .dashboard-header {
     background: white;
-    padding: 1.5rem 2rem;
+    padding: 1rem 1.25rem;
     border-bottom: 1px solid $border-color;
     display: flex;
     justify-content: space-between;
@@ -44,7 +44,7 @@ $danger-color: #dc3545;
 
     h1 {
       color: $primary-color;
-      font-size: 2rem;
+      font-size: 1.65rem;
       font-weight: 600;
       margin: 0;
     }
@@ -73,7 +73,7 @@ $danger-color: #dc3545;
 
   .dashboard-nav {
     background: white;
-    padding: 1rem 2rem;
+    padding: 0.65rem 1.25rem;
     display: flex;
     gap: 1rem;
     border-bottom: 1px solid $border-color;
@@ -87,7 +87,7 @@ $danger-color: #dc3545;
       border: 1px solid $border-color;
       border-radius: 8px;
       color: $text-light;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 500;
       cursor: pointer;
       position: relative;
@@ -126,6 +126,7 @@ $danger-color: #dc3545;
     .area-button {
       margin-left: auto;
       background: $warning-color;
+      font-size: 0.75rem;
     }
 
     .close-button {
@@ -145,7 +146,7 @@ $danger-color: #dc3545;
   }
 
   .dashboard-content {
-    padding: 2rem;
+    padding: 1rem;
   }
 
   .empty {
@@ -165,18 +166,18 @@ $danger-color: #dc3545;
 // Seções de Indicadores
 .indicadores-section {
   .section-header {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 
     h2 {
       color: $primary-color;
-      font-size: 1.8rem;
+      font-size: 1.15rem;
       font-weight: 600;
       margin: 0 0 0.5rem 0;
     }
 
     p {
       color: $text-light;
-      font-size: 1rem;
+      font-size: 0.9rem;
       margin: 0;
     }
   }
@@ -185,7 +186,7 @@ $danger-color: #dc3545;
   .kpis-grid {
     display: grid;
     gap: 1.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 
     &.estrategicos-grid {
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -199,7 +200,7 @@ $danger-color: #dc3545;
   // Cards de KPI
   .kpi-card {
     background: white;
-    padding: 1.5rem;
+    padding: 1.15rem;
     border-radius: 12px;
     border: 1px solid $border-color;
     @include card-shadow;
@@ -243,7 +244,7 @@ $danger-color: #dc3545;
     }
 
     .kpi-value {
-      font-size: 2.2rem;
+      font-size: 1.9rem !important;
       font-weight: 700;
       color: $primary-color;
       margin-bottom: 0.8rem;
@@ -286,6 +287,14 @@ $danger-color: #dc3545;
 
     &.estrategicos-charts {
       grid-template-columns: 2fr 1fr;
+
+      @media (max-width: 1024px) {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    &.ti-taticos-charts {
+      grid-template-columns: 1fr 2fr;
 
       @media (max-width: 1024px) {
         grid-template-columns: 1fr;

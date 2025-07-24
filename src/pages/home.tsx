@@ -45,6 +45,12 @@ export default function Home() {
     };
     document.addEventListener("mousemove", handleMouseMove);
 
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+    if (user.role === "admin") {
+      navigate("/admin");
+    }
+
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
     };
